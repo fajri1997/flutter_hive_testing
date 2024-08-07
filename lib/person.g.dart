@@ -8,7 +8,7 @@ part of 'person.dart';
 
 class PersonAdapter extends TypeAdapter<Person> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   Person read(BinaryReader reader) {
@@ -17,19 +17,40 @@ class PersonAdapter extends TypeAdapter<Person> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Person(
-      name: fields[0] as String,
-      age: fields[1] as int,
+      username: fields[0] as String,
+      name: fields[1] as String,
+      age: fields[2] as int,
+      email: fields[3] as String,
+      password: fields[4] as String,
+      number: fields[5] as String,
+      gender: fields[6] as Gender,
+      dateOfBirth: fields[7] as DateTime?,
+      nationality: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Person obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(9)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.username)
       ..writeByte(1)
-      ..write(obj.age);
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.age)
+      ..writeByte(3)
+      ..write(obj.email)
+      ..writeByte(4)
+      ..write(obj.password)
+      ..writeByte(5)
+      ..write(obj.number)
+      ..writeByte(6)
+      ..write(obj.gender)
+      ..writeByte(7)
+      ..write(obj.dateOfBirth)
+      ..writeByte(8)
+      ..write(obj.nationality);
   }
 
   @override
