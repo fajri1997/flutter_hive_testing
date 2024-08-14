@@ -10,6 +10,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({required this.personBox}) : super(LoginInitial()) {
     on<LoginUser>((event, emit) async {
       try {
+        print('on login');
         final person = personBox.get(event.username);
         if (person != null && person.password == event.password) {
           print('Login successful for user: ${event.username}');

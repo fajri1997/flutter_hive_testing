@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
+          print(state);
           if (state is LoginSuccess) {
             final person =
                 Hive.box<Person>('personBox').get(usernameController.text);
@@ -85,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10.0),
               ElevatedButton(
                 onPressed: () {
+                  print('object');
                   final username = usernameController.text;
                   final password = passwordController.text;
 
@@ -95,7 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                         password: password,
                       ),
                     );
+                    setState(() {});
                   } else {
+                    print('object');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Please fill in both fields'),
