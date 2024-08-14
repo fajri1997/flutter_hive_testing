@@ -35,6 +35,8 @@ dependencies:
   hive_generator: ^2.0.1
   country_picker: ^2.0.26
   intl: ^0.18.1 # Add this line
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.6
 
 dev_dependencies:
   flutter_test:

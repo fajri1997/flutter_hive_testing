@@ -13,7 +13,7 @@ class Person extends HiveObject {
     this.email = "",
     this.password = "",
     this.number = "",
-    this.gender = Gender.male,
+    this.gender = "",
     this.dateOfBirth,
     this.nationality = "",
   });
@@ -37,7 +37,7 @@ class Person extends HiveObject {
   late String number;
 
   @HiveField(6)
-  late Gender gender;
+  late String gender;
 
   @HiveField(7)
   DateTime? dateOfBirth;

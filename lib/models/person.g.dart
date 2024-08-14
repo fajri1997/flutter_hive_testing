@@ -23,7 +23,7 @@ class PersonAdapter extends TypeAdapter<Person> {
       email: fields[3] as String,
       password: fields[4] as String,
       number: fields[5] as String,
-      gender: fields[6] as Gender,
+      gender: fields[6] as String,
       dateOfBirth: fields[7] as DateTime?,
       nationality: fields[8] as String,
     );
