@@ -16,6 +16,7 @@ import 'view/screens/register/register_screen.dart'; // Import the RegisterPage
 
 late Box<Person> boxPerson;
 late Box<CreditCardInfo> boxCard;
+late Box<History> boxHistory;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

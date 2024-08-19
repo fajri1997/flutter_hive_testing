@@ -7,6 +7,7 @@ import 'package:flutter_hive_testing/models/person.dart';
 import 'package:flutter_hive_testing/models/credit_card_info.dart';
 import 'package:flutter_hive_testing/view/Widgets/CreditCardDisplayWidget.dart';
 import 'package:flutter_hive_testing/view/Widgets/widgets_card.dart';
+import 'package:flutter_hive_testing/view/screens/CreditCard/card_history_screen.dart';
 import 'package:flutter_hive_testing/view/screens/profile/profile.dart';
 import 'package:flutter_hive_testing/view/screens/login/login_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -168,6 +169,18 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CardHistoryAndDetailsScreen(),
+      ),
+    );
+  },
+  child: Text('View Card History and Details'),
+),
+
             const SizedBox(height: 10.0),
             Center(
               child: Visibility(
