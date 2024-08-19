@@ -11,7 +11,7 @@ import 'package:flutter_hive_testing/blocs/login/login_state.dart';
 
 // Import your models and screens
 import 'package:flutter_hive_testing/models/person.dart';
-import 'package:flutter_hive_testing/screens/home/home_screen.dart';
+import 'package:flutter_hive_testing/view/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';

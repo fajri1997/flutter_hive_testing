@@ -5,7 +5,7 @@ import 'package:flutter_hive_testing/blocs/register/register_bloc.dart';
 import 'package:flutter_hive_testing/blocs/register/register_event.dart';
 import 'package:flutter_hive_testing/blocs/register/register_state.dart';
 import 'package:flutter_hive_testing/models/person.dart';
-import 'package:flutter_hive_testing/screens/login/login_screen.dart';
+import 'package:flutter_hive_testing/view/screens/login/login_screen.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:intl/intl.dart';
 

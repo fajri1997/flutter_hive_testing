@@ -37,6 +37,8 @@ dependencies:
   intl: ^0.18.1 # Add this line
   equatable: ^2.0.5
   flutter_bloc: ^8.1.6
+  flutter_credit_card: ^3.0.3
+  uuid: ^4.4.2
 
 dev_dependencies:
   flutter_test:

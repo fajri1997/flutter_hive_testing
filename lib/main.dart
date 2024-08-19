@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hive_testing/blocs/CreditCard/credicardBloc.dart';
 import 'package:flutter_hive_testing/blocs/profile/profile_bloc.dart';
+import 'package:flutter_hive_testing/models/credit_card_info.dart';
+import 'package:flutter_hive_testing/models/history_hive.dart';
+import 'package:flutter_hive_testing/utils/history.box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'blocs/register/register_bloc.dart';
 import 'blocs/login/login_bloc.dart';
 import 'blocs/home/home_bloc.dart';
 import 'models/person.dart';
-import 'screens/login/login_screen.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/register/register_screen.dart'; // Import the RegisterPage
+import 'view/screens/login/login_screen.dart';
+import 'view/screens/home/home_screen.dart';
+import 'view/screens/register/register_screen.dart'; // Import the RegisterPage
 
 late Box<Person> boxPerson;
+late Box<CreditCardInfo> boxCard;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(PersonAdapter());
-  boxPerson = await Hive.openBox<Person>(
-      'personBox'); // Ensure the type is specified here
+  Hive.registerAdapter(CreditCardInfoAdapter());
+  Hive.registerAdapter(HistoryAdapter());
+
+  boxPerson = await Hive.openBox<Person>('personBox');
+  boxCard = await Hive.openBox<CreditCardInfo>('creditCardBox');
+
+  boxHistory = await Hive.openBox<History>("History");
   runApp(const MyApp());
 }
 
@@ -39,6 +49,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ProfileBloc(personBox: boxPerson),
+        ),
+        BlocProvider(
+          create: (context) => CreditCardBloc(creditCardBox: boxCard),
         ),
       ],
       child: MaterialApp(
