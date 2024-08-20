@@ -34,4 +34,6 @@ class CreditCardInfo extends HiveObject with EquatableMixin {
   @override
   List<Object?> get props =>
       [cardNumber, expiryDate, cardHolderName, cvvCode, transactionHistory];
+
+  get balance => null;
 }

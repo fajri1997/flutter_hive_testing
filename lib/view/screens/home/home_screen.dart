@@ -7,12 +7,13 @@ import 'package:flutter_hive_testing/models/person.dart';
 import 'package:flutter_hive_testing/models/credit_card_info.dart';
 import 'package:flutter_hive_testing/view/Widgets/CreditCardDisplayWidget.dart';
 import 'package:flutter_hive_testing/view/Widgets/widgets_card.dart';
-import 'package:flutter_hive_testing/view/Widgets/bank_account_type_widget.dart'; // Import the widget
 import 'package:flutter_hive_testing/view/screens/CreditCard/card_history_screen.dart';
 import 'package:flutter_hive_testing/view/screens/profile/profile.dart';
 import 'package:flutter_hive_testing/view/screens/login/login_screen.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../main.dart';
+import 'package:flutter_hive_testing/view/Widgets/bank_account_type_widget.dart'; // Import the widget
 
 class HomePage extends StatefulWidget {
   final Person user;
@@ -148,7 +149,6 @@ class _HomePageState extends State<HomePage> {
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: CreditCardDisplayWidget(
                               user: widget.user,
-                              cardIndex: index,
                               dotsButtonVisible: creditCards.isNotEmpty,
                               creditCardInfo: creditCards[index],
                             ),
@@ -183,6 +183,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+
               const SizedBox(height: 10.0),
               Center(
                 child: Visibility(
@@ -190,15 +191,15 @@ class _HomePageState extends State<HomePage> {
                   child: ClickableCard(),
                 ),
               ),
+
               const SizedBox(height: 20.0),
-              // Add the BankAccountTypeWidget here
+              // Adding the BankAccountTypeWidget
               BankAccountTypeWidget(
-                onAccountTypeSelected: (accountType) {
-                  // Handle account type selection
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Selected: $accountType')),
-                  );
-                },
+                username: widget.user.username,
+                cardNumber: "1234 5678 9101 1121", // Example card number
+                balance: "1200 KWD", // Example balance
+                expiryDate: "12/24",
+                onAccountTypeSelected: (accountType) {}, // Example expiry date
               ),
             ],
           ),
