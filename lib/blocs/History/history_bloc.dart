@@ -47,18 +47,41 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     }
   }
 
-  // Method to generate and add random history entries
   void generateRandomHistory(String currentUser) {
     final random = Random();
-    final history = History(
-      sender: 'User${random.nextInt(1000)}',
-      receiver: 'User${random.nextInt(1000)}',
-      amount: random.nextInt(1000) + 1, // Random amount between 1 and 1000
-      dateTime: DateTime.now().subtract(Duration(
-          days: random.nextInt(30))), // Random date within the last 30 days
+    final List<String> merchantTexts = [
+      'Online Shopping',
+      'Food Delivery',
+      'Grocery Store',
+      'Restaurant',
+      'Subscription Service',
+      'Utility Bill',
+      'Gym Membership',
+      'Clothing Store',
+      'Bookstore',
+      'Electronics Store'
+    ];
+
+    for (int i = 0; i < 4; i++) {
+      final historyOut = History(
+        sender: 'User${random.nextInt(1000)}',
+        receiver: merchantTexts[random.nextInt(merchantTexts.length)],
+        amount: random.nextInt(101),
+        dateTime: DateTime.now().subtract(Duration(days: random.nextInt(10))),
+        currentUser: currentUser,
+        isIn: false,
+      );
+      add(AddHistory(historyOut));
+    }
+
+    final historyIn = History(
+      sender: 'Employer${random.nextInt(100)}',
+      receiver: currentUser,
+      amount: random.nextInt(501) + 500,
+      dateTime: DateTime.now().subtract(Duration(days: random.nextInt(30))),
       currentUser: currentUser,
+      isIn: true,
     );
-    add(AddHistory(
-        history)); // Dispatch AddHistory event with the generated history
+    add(AddHistory(historyIn));
   }
 }

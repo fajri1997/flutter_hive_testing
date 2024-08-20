@@ -28,7 +28,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _onLogoutUser(LogoutUser event, Emitter<HomeState> emit) {
-    // Implement your logout logic here.
-    // Example: clearing session data, navigating to the login screen, etc.
+    //
   }
 }

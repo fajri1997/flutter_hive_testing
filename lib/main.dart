@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_testing/blocs/CreditCard/credicardBloc.dart';
+import 'package:flutter_hive_testing/blocs/History/history_bloc.dart';
 import 'package:flutter_hive_testing/blocs/profile/profile_bloc.dart';
 import 'package:flutter_hive_testing/models/credit_card_info.dart';
 import 'package:flutter_hive_testing/models/history_hive.dart';
@@ -27,8 +28,8 @@ void main() async {
 
   boxPerson = await Hive.openBox<Person>('personBox');
   boxCard = await Hive.openBox<CreditCardInfo>('creditCardBox');
-
   boxHistory = await Hive.openBox<History>("History");
+
   runApp(const MyApp());
 }
 
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CreditCardBloc(creditCardBox: boxCard),
         ),
+        BlocProvider(
+          create: (context) => HistoryBloc(historyBox: boxHistory),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -63,7 +67,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: boxPerson.isEmpty
-            ? const SelectionPage() // Show selection page when no user data exists
+            ? const SelectionPage()
             : HomePage(user: boxPerson.get('user') ?? Person()),
       ),
     );

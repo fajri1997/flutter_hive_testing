@@ -46,6 +46,9 @@ class _CreditCardPageState extends State<CreditCardPage> {
             ),
             CreditCardForm(
               formKey: GlobalKey<FormState>(),
+              textColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
               cardNumber: context.read<CreditCardBloc>().state.cardNumber,
               expiryDate: context.read<CreditCardBloc>().state.expiryDate,
               cardHolderName:

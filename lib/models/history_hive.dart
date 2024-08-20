@@ -20,12 +20,16 @@ class History extends HiveObject with EquatableMixin {
   @HiveField(4)
   String currentUser;
 
+  @HiveField(5)
+  bool isIn;
+
   History({
     required this.sender,
     required this.receiver,
     required this.amount,
     required this.dateTime,
     required this.currentUser,
+    required this.isIn,
   });
 
   @override
@@ -33,7 +37,7 @@ class History extends HiveObject with EquatableMixin {
 
   Future<void> saveHistory() async {
     try {
-      final box = await Hive.openBox<History>('transaction_history');
+      final box = await Hive.openBox<History>('history');
       await box.add(this);
     } catch (err) {
       throw err;
