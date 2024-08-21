@@ -10,6 +10,7 @@ import 'package:flutter_hive_testing/view/Widgets/widgets_card.dart';
 import 'package:flutter_hive_testing/view/screens/CreditCard/card_history_screen.dart';
 import 'package:flutter_hive_testing/view/screens/profile/profile.dart';
 import 'package:flutter_hive_testing/view/screens/login/login_screen.dart';
+import 'package:flutter_hive_testing/view/screens/settings/settings_screen.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../main.dart';
@@ -92,12 +93,12 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context); // Close the drawer
                 // Add navigation to the Settings page here
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => SettingsScreen(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
