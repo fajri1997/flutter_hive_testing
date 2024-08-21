@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class CurrentPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_hive_testing/main.dart';
+import 'package:flutter_hive_testing/models/credit_card_info.dart';
+
+class CurrentPage extends StatefulWidget {
   final String username;
   final String cardNumber;
 
@@ -11,11 +15,33 @@ class CurrentPage extends StatelessWidget {
     required this.username,
     required this.cardNumber,
     required this.expiryDate,
+    required String balance,
   });
+
+  @override
+  State<CurrentPage> createState() => _CurrentPageState();
+}
+
+class _CurrentPageState extends State<CurrentPage> {
+  int balance = 0;
+
+  generateRandomBalance() {
+    Random random = Random();
+
+    balance = random.nextInt(1000) * 2;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    generateRandomBalance();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final CreditCardInfo? card = boxCard.getAt(0);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +77,7 @@ class CurrentPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Account Holder: $username',
+                    'Account Holder: ${card!.cardHolderName}',
                     style: const TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -60,7 +86,7 @@ class CurrentPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    'Card Number: $cardNumber',
+                    'Card Number: ${card.cardNumber}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white70,
@@ -69,7 +95,7 @@ class CurrentPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    'Expiry Date: $expiryDate',
+                    'Expiry Date: ${card.expiryDate}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white70,
@@ -78,7 +104,7 @@ class CurrentPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Balance: 1200 kwd ',
+                    'Balance: $balance kwd ',
                     style: const TextStyle(
                       fontSize: 30,
                       color: Colors.white,

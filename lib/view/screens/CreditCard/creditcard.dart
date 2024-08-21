@@ -54,7 +54,7 @@ class _CreditCardPageState extends State<CreditCardPage> {
               cardHolderName:
                   context.read<CreditCardBloc>().state.cardHolderName,
               cvvCode: context.read<CreditCardBloc>().state.cvvCode,
-              themeColor: Colors.blue,
+              themeColor: Colors.purpleAccent,
               cardNumberDecoration: const InputDecoration(
                 labelText: 'Card Number',
                 hintText: 'XXXX XXXX XXXX XXXX',

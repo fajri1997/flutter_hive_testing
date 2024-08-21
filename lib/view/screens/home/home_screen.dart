@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_testing/blocs/login/login_bloc.dart';
@@ -50,6 +52,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple[300],
+        elevation: 0,
         title: const Text('Home Page'),
       ),
       drawer: Drawer(
@@ -120,13 +124,19 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20.0),
               Text(
                 'Welcome, ${widget.user.name}!',
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple,
+                ),
               ),
               const SizedBox(height: 10.0),
               Text(
                 'Username: ${widget.user.username}',
-                style: const TextStyle(fontSize: 18),
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.purple,
+                ),
               ),
               const SizedBox(height: 20.0),
 
@@ -135,8 +145,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Center(
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.26,
+                      width: MediaQuery.of(context).size.width * 0.7,
                       child: PageView.builder(
                         controller: _pageController,
                         onPageChanged: (index) {
@@ -147,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                         itemCount: creditCards.length,
                         itemBuilder: (context, index) {
                           return SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.1,
+                            height: MediaQuery.of(context).size.height * 0.26,
                             child: CreditCardDisplayWidget(
                               user: widget.user,
                               dotsButtonVisible: creditCards.isNotEmpty,

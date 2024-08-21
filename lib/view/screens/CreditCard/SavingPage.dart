@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 
 class SavingPage extends StatelessWidget {
   final String username;
+  final String cardNumber;
+  final String balance;
+  final String expiryDate;
 
-  const SavingPage(
-      {super.key,
-      required this.username,
-      required String cardNumber,
-      required String balance,
-      required String expiryDate});
+  const SavingPage({
+    super.key,
+    required this.username,
+    required this.cardNumber,
+    required this.balance,
+    required this.expiryDate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +69,9 @@ class SavingPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
+                  Text(
                     'Balance: 300 KWD',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 30,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -90,9 +94,9 @@ class SavingPage extends StatelessWidget {
               child: ListView(
                 children: [
                   _buildTransactionItem(
-                      context, 'Deposit', '+\$150', Colors.green),
+                      context, 'Deposit', '+150 KWD', Colors.green),
                   _buildTransactionItem(
-                      context, 'Deposit', '+\$150', Colors.green),
+                      context, 'Deposit', '+150 KWD', Colors.green),
                 ],
               ),
             ),

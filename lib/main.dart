@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_testing/blocs/CreditCard/credicardBloc.dart';
 import 'package:flutter_hive_testing/blocs/History/history_bloc.dart';
 import 'package:flutter_hive_testing/blocs/profile/profile_bloc.dart';
+import 'package:flutter_hive_testing/blocs/settings/settings_bloc.dart';
 import 'package:flutter_hive_testing/models/credit_card_info.dart';
 import 'package:flutter_hive_testing/models/history_hive.dart';
+import 'package:flutter_hive_testing/models/settings.dart';
 import 'package:flutter_hive_testing/utils/history.box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'blocs/register/register_bloc.dart';
@@ -18,6 +20,7 @@ import 'view/screens/register/register_screen.dart'; // Import the RegisterPage
 late Box<Person> boxPerson;
 late Box<CreditCardInfo> boxCard;
 late Box<History> boxHistory;
+late Box<SettingsModel> boxSettings;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HistoryBloc(historyBox: boxHistory),
+        ),
+        BlocProvider(
+          create: (context) => SettingsBloc(boxSettings),
         ),
       ],
       child: MaterialApp(

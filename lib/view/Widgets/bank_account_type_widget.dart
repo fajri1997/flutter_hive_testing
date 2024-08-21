@@ -25,20 +25,20 @@ class BankAccountTypeWidget extends StatelessWidget {
         const Text(
           'Choose Your Account Type',
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
           ),
         ),
-        const SizedBox(height: 12), // Reduced spacing between text and cards
+        const SizedBox(height: 10), // Reduced spacing between text and cards
         Row(
           mainAxisAlignment:
               MainAxisAlignment.spaceEvenly, // Evenly space the cards
           children: [
             _buildAccountTypeCard(
               context: context,
-              icon: Icons.savings_outlined,
               title: 'Saving',
+              subtitle: ' 43491023 \n\nBalance: \n300 KWD',
               accountType: 'Saving',
               onTap: () {
                 Navigator.push(
@@ -56,8 +56,8 @@ class BankAccountTypeWidget extends StatelessWidget {
             ),
             _buildAccountTypeCard(
               context: context,
-              icon: Icons.account_balance_wallet_outlined,
               title: 'Current',
+              subtitle: '43491333 \n\nBalance: \n$balance',
               accountType: 'Current',
               onTap: () {
                 Navigator.push(
@@ -66,6 +66,7 @@ class BankAccountTypeWidget extends StatelessWidget {
                     builder: (context) => CurrentPage(
                       username: username,
                       cardNumber: cardNumber,
+                      balance: balance, // Added balance here
                       expiryDate: expiryDate,
                     ),
                   ),
@@ -80,17 +81,17 @@ class BankAccountTypeWidget extends StatelessWidget {
 
   Widget _buildAccountTypeCard({
     required BuildContext context,
-    required IconData icon,
     required String title,
+    String? subtitle,
     required String accountType,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 160, // Further increased width
-        height: 160, // Further increased height
-        padding: const EdgeInsets.all(16.0), // Kept padding consistent
+        width: 150,
+        height: 150,
+        padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
@@ -110,19 +111,27 @@ class BankAccountTypeWidget extends StatelessWidget {
           ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, size: 48, color: Colors.white), // Increased icon size
-            const SizedBox(height: 10), // Reduced space between icon and text
             Text(
               title,
               style: const TextStyle(
-                fontSize: 18, // Increased font size
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
             ),
+            const Spacer(),
+            if (subtitle != null)
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white70,
+                ),
+                textAlign: TextAlign.left,
+              ),
           ],
         ),
       ),

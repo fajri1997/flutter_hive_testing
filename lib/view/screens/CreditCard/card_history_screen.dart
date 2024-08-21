@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_testing/blocs/History/history_bloc.dart';
@@ -9,7 +11,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class CardHistoryAndDetailsScreen extends StatefulWidget {
   final int cardIndex;
-  const CardHistoryAndDetailsScreen({super.key, required this.cardIndex});
+  final int balance;
+  const CardHistoryAndDetailsScreen(
+      {super.key, required this.cardIndex, required this.balance});
 
   @override
   State<CardHistoryAndDetailsScreen> createState() =>
@@ -26,6 +30,12 @@ class _CardHistoryAndDetailsScreenState
   }
 
   int generateRandom = 1;
+  generateRandomBalance() {
+    Random random = Random();
+
+    return random.nextInt(10000) * 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     final CreditCardInfo? card = boxCard.getAt(widget.cardIndex);
@@ -148,9 +158,9 @@ class _CardHistoryAndDetailsScreenState
                                   color: Colors.white,
                                 ),
                               ),
-                              const Text(
-                                '\ 1200 KWD',
-                                style: TextStyle(
+                              Text(
+                                '\ ${widget.balance} KWD',
+                                style: const TextStyle(
                                   fontSize: 30,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -296,7 +306,7 @@ class _CardHistoryAndDetailsScreenState
                                         child: ListTile(
                                           contentPadding:
                                               const EdgeInsets.symmetric(
-                                                  horizontal: 16.0,
+                                                  horizontal: 10.0,
                                                   vertical: 10.0),
                                           leading: CircleAvatar(
                                             backgroundColor: Colors.purple[300],
