@@ -94,212 +94,362 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: BlocListener<RegisterBloc, RegisterState>(
-        listener: (context, state) {
-          if (state is RegisterSuccess) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-            );
-          } else if (state is RegisterFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
-          }
-        },
-        child: BlocBuilder<RegisterBloc, RegisterState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              controller: ScrollController(),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: usernameController,
-                      focusNode: usernameFocusNode,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Username',
-                      ),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).requestFocus(nameFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: nameController,
-                      focusNode: nameFocusNode,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Name',
-                      ),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).requestFocus(ageFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: ageController,
-                      focusNode: ageFocusNode,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Age',
-                      ),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).requestFocus(emailFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: emailController,
-                      focusNode: emailFocusNode,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email',
-                      ),
-                      onEditingComplete: () => FocusScope.of(context)
-                          .requestFocus(passwordFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: passwordController,
-                      focusNode: passwordFocusNode,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: _togglePasswordVisibility,
-                        ),
-                      ),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).requestFocus(numberFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextField(
-                      controller: numberController,
-                      focusNode: numberFocusNode,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Number',
-                      ),
-                      onEditingComplete: () => FocusScope.of(context)
-                          .requestFocus(dateOfBirthFocusNode),
-                    ),
-                    const SizedBox(height: 10.0),
-                    DropdownButtonFormField<Gender>(
-                      value: _selectedGender,
-                      onChanged: (Gender? newValue) {
-                        setState(() {
-                          _selectedGender = _parseGender(newValue!.name);
-                        });
-                      },
-                      items: _genders.map((Gender gender) {
-                        return DropdownMenuItem<Gender>(
-                          value: gender,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            bottom: 200,
+            child: CustomPaint(
+              size: const Size(double.infinity, double.infinity),
+              painter: CenteredBackgroundShapePainter(),
+            ),
+          ),
+          BlocListener<RegisterBloc, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterSuccess) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else if (state is RegisterFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.error)),
+                );
+              }
+            },
+            child: BlocBuilder<RegisterBloc, RegisterState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  controller: ScrollController(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30.0),
+                        Center(
                           child: Text(
-                              gender.toString().split('.').last.capitalize()),
-                        );
-                      }).toList(),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Gender',
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    GestureDetector(
-                      onTap: _selectDateOfBirth,
-                      child: AbsorbPointer(
-                        child: TextField(
-                          controller: dateOfBirthController,
-                          focusNode: dateOfBirthFocusNode,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Date of Birth',
+                            'Register',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              color: Colors.purpleAccent,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    GestureDetector(
-                      onTap: _showCountryPicker,
-                      child: AbsorbPointer(
-                        child: TextField(
-                          controller: nationalityController,
-                          focusNode: nationalityFocusNode,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Nationality',
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: usernameController,
+                          focusNode: usernameFocusNode,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Username',
+                          ),
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(nameFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: nameController,
+                          focusNode: nameFocusNode,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Name',
+                          ),
+                          onEditingComplete: () =>
+                              FocusScope.of(context).requestFocus(ageFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: ageController,
+                          focusNode: ageFocusNode,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Age',
+                          ),
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(emailFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: emailController,
+                          focusNode: emailFocusNode,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Email',
+                          ),
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(passwordFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: passwordController,
+                          focusNode: passwordFocusNode,
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: _togglePasswordVisibility,
+                            ),
+                          ),
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(numberFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        TextField(
+                          controller: numberController,
+                          focusNode: numberFocusNode,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Number',
+                          ),
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(dateOfBirthFocusNode),
+                        ),
+                        const SizedBox(height: 10.0),
+                        DropdownButtonFormField<Gender>(
+                          value: _selectedGender,
+                          onChanged: (Gender? newValue) {
+                            setState(() {
+                              _selectedGender = _parseGender(newValue!.name);
+                            });
+                          },
+                          items: _genders.map((Gender gender) {
+                            return DropdownMenuItem<Gender>(
+                              value: gender,
+                              child: Text(gender
+                                  .toString()
+                                  .split('.')
+                                  .last
+                                  .capitalize()),
+                            );
+                          }).toList(),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            hintText: 'Gender',
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Basic validation before submitting
-                        if (usernameController.text.isEmpty ||
-                            nameController.text.isEmpty ||
-                            ageController.text.isEmpty ||
-                            emailController.text.isEmpty ||
-                            passwordController.text.isEmpty ||
-                            numberController.text.isEmpty ||
-                            dateOfBirthController.text.isEmpty ||
-                            nationalityController.text.isEmpty) {
-                          // Show a snackbar or alert dialog to notify the user to fill all fields
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Please fill all fields')),
-                          );
-                          return;
-                        }
-
-                        // Ensure dateOfBirth is valid
-                        final parsedDateOfBirth =
-                            _parseDateOfBirth(dateOfBirthController.text);
-                        if (parsedDateOfBirth == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Please enter a valid date of birth')),
-                          );
-                          return;
-                        }
-
-                        // If all validations pass, trigger the registration event
-                        BlocProvider.of<RegisterBloc>(context).add(
-                          RegisterUser(
-                            username: usernameController.text,
-                            name: nameController.text,
-                            age: int.tryParse(ageController.text) ?? 0,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            number: numberController.text,
-                            gender: _selectedGender.name,
-                            dateOfBirth: parsedDateOfBirth,
-                            nationality: nationalityController.text,
+                        const SizedBox(height: 10.0),
+                        GestureDetector(
+                          onTap: _selectDateOfBirth,
+                          child: AbsorbPointer(
+                            child: TextField(
+                              controller: dateOfBirthController,
+                              focusNode: dateOfBirthFocusNode,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                hintText: 'Date of Birth',
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      child: const Text('Register'),
+                        ),
+                        const SizedBox(height: 10.0),
+                        GestureDetector(
+                          onTap: _showCountryPicker,
+                          child: AbsorbPointer(
+                            child: TextField(
+                              controller: nationalityController,
+                              focusNode: nationalityFocusNode,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                hintText: 'Nationality',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30.0),
+                        Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize:
+                                  Size(size.width * 0.7, size.height * 0.06),
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.purple,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              // Basic validation before submitting
+                              if (usernameController.text.isEmpty ||
+                                  nameController.text.isEmpty ||
+                                  ageController.text.isEmpty ||
+                                  emailController.text.isEmpty ||
+                                  passwordController.text.isEmpty ||
+                                  numberController.text.isEmpty ||
+                                  dateOfBirthController.text.isEmpty ||
+                                  nationalityController.text.isEmpty) {
+                                // Show a snackbar or alert dialog to notify the user to fill all fields
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Please fill all fields')),
+                                );
+                                return;
+                              }
+
+                              // Ensure dateOfBirth is valid
+                              final parsedDateOfBirth =
+                                  _parseDateOfBirth(dateOfBirthController.text);
+                              if (parsedDateOfBirth == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Please enter a valid date of birth')),
+                                );
+                                return;
+                              }
+
+                              // If all validations pass, trigger the registration event
+                              BlocProvider.of<RegisterBloc>(context).add(
+                                RegisterUser(
+                                  username: usernameController.text,
+                                  name: nameController.text,
+                                  age: int.tryParse(ageController.text) ?? 0,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  number: numberController.text,
+                                  gender: _selectedGender.name,
+                                  dateOfBirth: parsedDateOfBirth,
+                                  nationality: nationalityController.text,
+                                ),
+                              );
+                            },
+                            child: const Text('Register'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

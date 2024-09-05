@@ -11,8 +11,14 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
-            return Text('Settings',
-                style: TextStyle(fontSize: state.settings.fontSize));
+            return Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: state.settings.fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.purpleAccent,
+              ),
+            );
           },
         ),
       ),

@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_testing/blocs/login/login_bloc.dart';
 import 'package:flutter_hive_testing/blocs/login/login_state.dart';
 import 'package:flutter_hive_testing/blocs/profile/profile_bloc.dart';
+import 'package:flutter_hive_testing/blocs/settings/settings_bloc.dart';
 import 'package:flutter_hive_testing/models/person.dart';
 import 'package:flutter_hive_testing/models/credit_card_info.dart';
 import 'package:flutter_hive_testing/view/Widgets/CreditCardDisplayWidget.dart';
@@ -16,7 +18,9 @@ import 'package:flutter_hive_testing/view/screens/settings/settings_screen.dart'
 
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../main.dart';
-import 'package:flutter_hive_testing/view/Widgets/bank_account_type_widget.dart'; // Import the widget
+import 'package:flutter_hive_testing/view/Widgets/bank_account_type_widget.dart';
+
+import 'enter_amount_screen.dart'; // Import the widget
 
 class HomePage extends StatefulWidget {
   final Person user;
@@ -211,6 +215,24 @@ class _HomePageState extends State<HomePage> {
                 balance: "1200 KWD", // Example balance
                 expiryDate: "12/24",
                 onAccountTypeSelected: (accountType) {}, // Example expiry date
+              ),
+
+              const SizedBox(height: 20.0),
+              //icon textbutton to show send money
+              Center(
+                child: TextButton.icon(
+                  onPressed: () {
+                    //show bottom sheet to select account/card to send money
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const EnterAmountScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.send),
+                  label: const Text('Send Money'),
+                ),
               ),
             ],
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hive_testing/main.dart';
+import 'package:flutter_hive_testing/models/send_amount.dart';
 
-class SavingPage extends StatelessWidget {
+class SavingPage extends StatefulWidget {
   final String username;
   final String cardNumber;
   final String balance;
@@ -15,8 +17,29 @@ class SavingPage extends StatelessWidget {
   });
 
   @override
+  State<SavingPage> createState() => _SavingPageState();
+}
+
+class _SavingPageState extends State<SavingPage> {
+  late final List<SendAmount> amountDeposits;
+
+  @override
+  void initState() {
+    // Retrieve all saved SendAmount objects from the box
+    amountDeposits = boxSendAmount.values.toSet().toList().cast<SendAmount>();
+
+    super.initState();
+  }
+
+  double balance = 0;
+  @override
   Widget build(BuildContext context) {
     var isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    print(amountDeposits.length);
+    for (var amount in amountDeposits) {
+      balance = balance + double.parse(amount.amount);
+      setState(() {});
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +75,7 @@ class SavingPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Account Holder: $username',
+                    'Account Holder: ${widget.username}',
                     style: const TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -70,7 +93,7 @@ class SavingPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Balance: 300 KWD',
+                    'Balance: $balance KWD',
                     style: const TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -91,13 +114,16 @@ class SavingPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: ListView(
-                children: [
-                  _buildTransactionItem(
-                      context, 'Deposit', '+150 KWD', Colors.green),
-                  _buildTransactionItem(
-                      context, 'Deposit', '+150 KWD', Colors.green),
-                ],
+              child: ListView.builder(
+                itemBuilder: (c, i) {
+                  return _buildTransactionItem(
+                    context,
+                    'Deposit',
+                    '+${amountDeposits[i].amount}KWD',
+                    Colors.green,
+                  );
+                },
+                itemCount: amountDeposits.length,
               ),
             ),
           ],

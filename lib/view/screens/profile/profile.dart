@@ -26,9 +26,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.purpleAccent,
+          ),
+        ),
       ),
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
@@ -55,30 +63,60 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 10),
                   TextField(
                     controller: emailController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
                       labelText: 'Email',
                     ),
                   ),
                   const SizedBox(height: 10),
                   TextField(
                     controller: numberController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
                       labelText: 'Mobile Number',
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<ProfileBloc>().add(
-                            UpdateProfile(
-                              email: emailController.text,
-                              number: numberController.text,
-                            ),
-                          );
-                    },
-                    child: const Text('Save Changes'),
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.purple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<ProfileBloc>().add(
+                              UpdateProfile(
+                                email: emailController.text,
+                                number: numberController.text,
+                              ),
+                            );
+                      },
+                      child: const Text('Save Changes'),
+                    ),
                   ),
                 ],
               ),
